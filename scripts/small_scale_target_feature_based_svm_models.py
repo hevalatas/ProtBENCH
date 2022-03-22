@@ -1,0 +1,104 @@
+# -*- coding: utf-8 -*-
+import sys
+import pandas as pd
+import numpy as np
+from datetime import datetime
+
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score, matthews_corrcoef
+
+
+def SVM_model(tr,ts,prot_ft,chembl_id,fold):
+    start = datetime.now()
+    
+    df_prot_ft = pd.read_csv(r"..\datasets\small_scale\feature_vectors\{}.tsv".format(prot_ft),sep="\t")
+
+    train_ft = tr.merge(df_prot_ft,on="target_id")
+    X_train = train_ft.iloc[:,2:]
+    y_train = train_ft["bioactivity"]
+     
+    test_ft = ts.merge(df_prot_ft,on="target_id")
+    X_test = test_ft.iloc[:,2:]
+    y_test = test_ft["bioactivity"]
+
+    #tune hyperparameters                           
+    Cs = [0.1, 1, 10,100]  
+    gammas = [0.001, 0.01, 0.1, 1, 10]  
+    param_grid = {'C': Cs, 'gamma' : gammas}
+    grid_search = GridSearchCV(SVC(kernel='rbf'), param_grid=param_grid, cv=10, scoring="accuracy")
+    grid_search.fit(X_train, y_train) 
+        
+    #train model
+    clf = SVC(kernel="rbf", C=grid_search.best_params_["C"], gamma=grid_search.best_params_["gamma"])
+    clf.fit(X_train, y_train)        
+
+    # #save model
+    # with open(r"..\models\small_scale\{0}\{0}_{1}_svm_model_fold{2}.pkl".format(chembl_id,prot_ft,fold),"wb") as file:
+    #     pickle.dump(clf,file)
+            
+    #test model
+    test_pred = clf.predict(X_test)
+
+    accuracy_test = accuracy_score(y_test,test_pred)
+    precision_test = precision_score(y_test,test_pred)
+    recall_test = recall_score(y_test,test_pred)
+    f1_test = f1_score(y_test,test_pred)  
+    mcc_test = matthews_corrcoef(y_test,test_pred)
+
+    # #save predictions
+    # pred_file = test_ft.iloc[:,:2]
+    # pred_file["predicted_bioactivity"] = test_pred
+    # pred_file.to_csv(r"..\predictions\small_scale\{0}_{1}_svm_predictions_fold{2}.tsv".format(chembl_id,prot_ft,fold),sep="\t",index=None)
+
+    end = datetime.now()
+    print("elapsed time: {}".format(end-start))    
+    return [accuracy_test,precision_test,recall_test,f1_test,mcc_test]
+    
+
+print(datetime.now())
+
+def CompCentric_model_generation(folder,chembl_id):
+    protein_features = ["aac","aac_pssm","aadp_pssm","aatp_pssm","ab_pssm","apaac","cksaagp",\
+                        "cksaap","ctdc","ctdd","ctdt","ctriad","dde","dpc","dpc_pssm",\
+                            "dp_pssm","d_fpssm","edp_pssm","eedp_pssm","gaac","gdpc","geary","gtpc",\
+                                "ksctriad","k-sep_pssm","medp_pssm","moran","nmbroto","paac",\
+                                    "pfam","pse_pssm","pssm_ac","pssm_cc","pssm_composition",\
+                                        "qso","random200","rpm_pssm","rpssm","spmap","taap",\
+                                            "tpc","tpc_pssm","tri-gram_pssm"]           
+
+    test_results_mean = []
+    for pft in protein_features: 
+        test_results = []
+        for i in range(1,6):
+            train = pd.read_csv(r"..\datasets\small_scale\{0}\{1}_train_fold{2}.tsv".format(folder,chembl_id,i),sep="\t")
+            test = pd.read_csv(r"..\datasets\small_scale\{0}\{1}_test_fold{2}.tsv".format(folder,chembl_id,i),sep="\t")
+    
+            model = SVM_model(train,test,pft,chembl_id,i)       
+            test_results.append(model)
+        test_results_mean.append([pft]+list(np.mean(test_results, axis=0)))
+
+    df_test_results = pd.DataFrame(columns=["model","accuracy","precision","recall","f1-score","MCC"],data=test_results_mean)            
+    df_test_results.to_csv(r"..\results\small_scale\SVM\{0}_svm-models_test-results.tsv".format(chembl_id),sep="\t",index=None)
+
+        
+if __name__ == "__main__":
+    arg1 = sys.argv[1]
+    arg2 = arg1.split("_")[0].lower()
+    CompCentric_model_generation(arg1,arg2)
+
+
+
+print(datetime.now())
+
+
+
+
+
+
+
+
+
+
+
+
