@@ -33,25 +33,25 @@ The study is summarized in the schematic workflow below.
 3. Download datasets from [here](https://drive.google.com/drive/folders/1lID4vX9c4hm7hWTqzsVFj4ZmMvjmL2EN) and uncompress the “datasets.zip” file. Place the uncompressed folder in the cloned repository at the same level as the **results** and **scripts** folders. 
 4. Set the location of **scripts** folder as the current working directory, and run the corresponding script to build models at the data scale of your interest. Instead of creating all models of the selected scale at once, you can easily edit the script file according to your purpose before running it. You need to uncomment "save model" and "save predictions" code blocks in the script file to save the constructed model and its predicted outputs, respectively.
 
-   **Example commands to run the scripts for building models of interest:**
+**Example commands to run the scripts for building models of interest:**
    
-   For generating models on small-scale, run the "small_scale_target_feature_based_svm_models.py" script for SVM algorithm and "small_scale_target_feature_based_rf_models.py" for RF algorithm by defining the folder name of the dataset (i.e., "ChEMBL44_Genistein", "ChEMBL50_Quercetin", "ChEMBL83_Tamoxifen", "ChEMBL91_Miconazole", "ChEMBL104_Clotrimazole", "ChEMBL633_Amiodarone", "ChEMBL808_Econazole", "ChEMBL116438_Curcumin", and "ChEMBL295698_Levoketoconazole") as parameter, e.g.:
+For generating models on small-scale, run the "small_scale_target_feature_based_svm_models.py" script for SVM algorithm and "small_scale_target_feature_based_rf_models.py" for RF algorithm by defining the folder name of the dataset (i.e., "ChEMBL44_Genistein", "ChEMBL50_Quercetin", "ChEMBL83_Tamoxifen", "ChEMBL91_Miconazole", "ChEMBL104_Clotrimazole", "ChEMBL633_Amiodarone", "ChEMBL808_Econazole", "ChEMBL116438_Curcumin", and "ChEMBL295698_Levoketoconazole") as parameter, e.g.:
    
-   ```
-   python small_scale_target_feature_based_svm_models.py ChEMBL44_Genistein
-   ```
+```
+python small_scale_target_feature_based_svm_models.py ChEMBL44_Genistein
+```
    
-   For generating models on medium-scale, run the "medium_scale_pcm_rf_models.py" script without defining any parameter, e.g.:
+For generating models on medium-scale, run the "medium_scale_pcm_rf_models.py" script without defining any parameter, e.g.:
    
-   ```
-   python medium_scale_pcm_rf_models.py
-   ```
+```
+python medium_scale_pcm_rf_models.py
+```
    
-   For generating models on large-scale, run the "large_scale_pcm_rf_models.py" script by defining the split name (i.e., "fully_dissimilar_split", "dissimilar_compound_split", and "random_split") and protein family of interest (i.e., "epigenetic-regulators", "ion-channels", "membrane-receptors", "transcription-factors", "transporters", "hydrolases", "oxidoreductases", "proteases", "transferases", and "other-enzymes") as parameters, respectively, e.g.:
+For generating models on large-scale, run the "large_scale_pcm_rf_models.py" script by defining the split name (i.e., "fully_dissimilar_split", "dissimilar_compound_split", and "random_split") and protein family of interest (i.e., "epigenetic-regulators", "ion-channels", "membrane-receptors", "transcription-factors", "transporters", "hydrolases", "oxidoreductases", "proteases", "transferases", and "other-enzymes") as parameters, respectively, e.g.:
    
-   ```
-   python large_scale_pcm_rf_models.py fully_dissimilar_split proteases
-   ```
+```
+python large_scale_pcm_rf_models.py fully_dissimilar_split proteases
+```
    
 ## License
 
