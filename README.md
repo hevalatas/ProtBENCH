@@ -1,5 +1,5 @@
-# How to Best Represent Proteins in Machine Learning-based Prediction of Drug/Compound-Target Interactions
-In this study, we performed a rigorous benchmark analysis to investigate the representation capability of various protein featurization techniques on DTI prediction modelling. Below, we summarized the major contributions of our study to the literature:
+# ProtBENCH: A Comprehensive Benchmark for Machine Learning-based Prediction of Drug/Compound-Target Interactions
+In this study/repository, we performed a rigorous benchmark analysis to investigate the representation capability of various protein featurization techniques together with different datasets (and their structured splits), modeling approaches and evaluation strategies for DTI prediction modelling. Below, we summarized the major contributions of our study to the literature:
 * We proposed protein family-specific challenging benchmark datasets with high coverage on both compound and protein spaces, which can be used as reliable, reference/gold-standard datasets for fair evaluation of models at multiple difficulty levels on DTI modelling tasks.
 * We employed a network-based strategy for splitting train/test folds of these protein family-specific datasets, which ensures that train and test folds are totally dissimilar from each other with a minimum loss of data points. Hence, it can aid researchers in designing more powerful and robust DTI prediction models that have a real translational value.
 * We extended the scope of our study by involving the state-of-the-art protein representation learning methods and discussed their potential in DTI prediction, in which the studies regarding their usage in DTI prediction modelling are limited.
@@ -8,6 +8,12 @@ As the first near comprehensive benchmark study of protein representation method
 The study is summarized in the schematic workflow below.
 
 ![ProtBENCH_workflow](https://user-images.githubusercontent.com/13165170/167012580-5cdb1d4f-650f-484b-b34a-b399984d36cd.png)
+
+Please refer to our pre-print for more information:
+
+Atas, H. & Doğan, T. (2022). How to Approach Machine Learning-based Prediction of Drug/ Compound-Target Interactions. *bioRxiv*, 2022.05.01.490207.
+
+DOI/URL: [10.1101/2022.05.01.490207](https://biorxiv.org/cgi/content/short/2022.05.01.490207)
 
 ## Programming Environment and Files
 **Descriptions of folders and files:**
