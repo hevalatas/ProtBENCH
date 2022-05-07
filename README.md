@@ -35,7 +35,7 @@ DOI/URL: [10.1101/2022.05.01.490207](https://biorxiv.org/cgi/content/short/2022.
 **Step-by-step operation:**
 1. Install dependencies.
 2. Clone this repository.
-3. Download datasets from [here](https://drive.google.com/drive/folders/1lID4vX9c4hm7hWTqzsVFj4ZmMvjmL2EN) and uncompress the “datasets.zip” file. Place the uncompressed folder in the cloned repository at the same level as the **results** and **scripts** folders. 
+3. Download datasets from [here](https://drive.google.com/file/d/1zVOyFIEOo33yeF3vFE8paz5pS5H5Z99N/view?usp=sharing) and uncompress the “datasets.zip” file. Place the uncompressed folder in the cloned repository at the same level as the **results** and **scripts** folders. 
 4. Set the location of **scripts** folder as the current working directory, and run the corresponding script to build models at the data scale of your interest. Instead of creating all models of the selected scale at once, you can easily edit the script file according to your purpose before running it. You need to uncomment "save model" and "save predictions" code blocks in the script file to save the constructed model and its predicted outputs, respectively.
 
 **Example commands to run the scripts for building models of interest:**
